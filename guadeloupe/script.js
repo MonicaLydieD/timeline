@@ -1,8 +1,15 @@
 const container = document.getElementById("timeline");
 const infoPanel = document.getElementById("info-panel");
 
+// chercher les données dans le fichier 
+fetch("data/guadeloupe_timeline.json")
+  .then(response => response.json())
+  .then(events => {
+    const container = document.getElementById("timeline");
+    const infoPanel = document.getElementById("info-panel");
+
 // Créer les éléments de la frise
-events.forEach((event, index) => {
+    events.forEach((event, index) => {
   const node = document.createElement("div");
   node.className = "timeline-item";
   node.innerText = event.date;
