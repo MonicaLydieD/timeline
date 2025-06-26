@@ -1,4 +1,4 @@
-// chercher les données dans le fichier 
+// Charger les données JSON
 fetch("data/guadeloupe_timeline.json")
   .then(response => response.json())
   .then(events => {
@@ -6,10 +6,11 @@ fetch("data/guadeloupe_timeline.json")
     const infoPanel = document.getElementById("info-panel");
 
     // Créer les éléments de la frise
-    events.forEach((event, index) => {
+    events.forEach((event) => {
       const node = document.createElement("div");
       node.className = "timeline-item";
       node.innerText = event.date;
+
       node.addEventListener("click", () => {
         infoPanel.innerHTML = `
           <h2>${event.title}</h2>
@@ -17,11 +18,12 @@ fetch("data/guadeloupe_timeline.json")
           <p>${event.description.replace(/\n/g, "<br>")}</p>
         `;
       });
+
       container.appendChild(node);
     });
 
-    // === Style CSS suggéré pour la frise ===
-    const style = document.createElement('style');
+    // Ajouter le style CSS dynamiquement
+    const style = document.createElement("style");
     style.textContent = `
       #timeline {
         display: flex;
@@ -65,4 +67,7 @@ fetch("data/guadeloupe_timeline.json")
       }
     `;
     document.head.appendChild(style);
+  })
+  .catch(error => {
+    console.error("Erreur de chargement JSON :", error);
   });
