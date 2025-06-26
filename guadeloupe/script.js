@@ -1,5 +1,5 @@
 // Charger les données JSON
-fetch("data/guadeloupe_timeline.json")
+fetch("data/data.json")
   .then(response => response.json())
   .then(events => {
     const container = document.getElementById("timeline");
