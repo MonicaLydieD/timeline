@@ -11,21 +11,19 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(events => {
       const items = new vis.DataSet();
 
-      // Options de timeline : définies AVANT la création
       const options = {
         orientation: 'top',
-        tooltip: false, // Désactivé, car on utilise un panneau latéral
-        zoomable: true,
         showCurrentTime: true,
-        margin: { item: 20 }
+        zoomable: true,
+        margin: { item: 20 },
+        tooltip: { followMouse: true, overflowMethod: 'cap' } // ✅ corrigé
       };
 
       const timeline = new vis.Timeline(container, items, options);
 
-      // Ajouter les événements
       events.forEach((e, i) => {
-        let startDate = parseDate(e.start);
-        let endDate = e.end ? parseDate(e.end) : null;
+        const startDate = parseDate(e.start);
+        const endDate = e.end ? parseDate(e.end) : null;
 
         if (!startDate) {
           console.warn(`Événement ignoré, date invalide :`, e);
@@ -47,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
         items.add(item);
       });
 
-      // Lorsqu'on sélectionne un élément de la frise
       timeline.on("select", (props) => {
         const selectedId = props.items[0];
         if (selectedId != null) {
@@ -62,26 +59,32 @@ document.addEventListener("DOMContentLoaded", () => {
       container.innerHTML = `<p style="color:red;">Erreur : impossible de charger les données.</p>`;
     });
 
-  // Fonction de conversion de date souple
   function parseDate(str) {
     if (!str) return null;
 
-    // Cas année uniquement : "2000"
+    // Cas année seule : "2002"
     if (/^\d{4}$/.test(str)) {
       return new Date(`${str}-01-01`);
     }
 
-    // Cas mois année : "Mars 2005"
+    // Cas "mois année" : "Avril 2023"
     if (/^[A-Za-zéûîôàèùçÉÂÀÔ]+\s+\d{4}$/.test(str)) {
       try {
         return new Date(`01 ${str}`);
-      } catch {
+      } catch (e) {
         return null;
       }
     }
 
-    // Cas complet standard
-    const date = new Date(str);
-    return isNaN(date.getTime()) ? null : date;
+    // Cas "jour mois année" : "15 novembre 2018"
+    if (/^\d{1,2} [A-Za-zéûîôàèùçÉÂÀÔ]+ \d{4}$/.test(str)) {
+      try {
+        return new Date(str);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    return null;
   }
 });
