@@ -94,18 +94,34 @@ footer {
 
 /* Responsive : frise + description côte à côte sur large écran */
 @media screen and (min-width: 768px) {
-  #timeline-wrapper {
-    flex-direction: row;
-    align-items: flex-start;
-  }
+ #timeline-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 2rem;
+  flex-wrap: wrap; /* pour s’adapter en mobile */
+}
 
-  #timeline {
-    flex: 2;
-  }
+#timeline {
+  flex: 2;
+  min-width: 300px;
+}
 
-  .description-panel {
-    flex: 1;
-    margin-top: 0;
-    margin-left: 2rem;
-  }
+.description-panel {
+  flex: 1;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  max-width: 350px;
+  width: 100%;
+  min-height: 200px;
+}
+
+.description-panel h2 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
 }
