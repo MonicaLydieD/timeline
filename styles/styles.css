@@ -43,18 +43,28 @@ h1 {
   gap: 1rem;
 }
 
-/* Boutons de timeline */
+.button-group.vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
 .timeline-button {
-  display: inline-block;
-  padding: 0.8rem 1.5rem;
-  background-color: #0056b3;
+  background-color: #4a90e2;
   color: white;
+  padding: 12px 20px;
   text-decoration: none;
   border-radius: 6px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   transition: background-color 0.3s ease;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
 }
 
 .timeline-button:hover {
-  background-color: #003d80;
+  background-color: #357ab8;
 }
+
