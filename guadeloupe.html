@@ -1,44 +1,32 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Histoire de l'Église en Guadeloupe</title>
-  <link rel="stylesheet" href="styles/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Timeline – Guadeloupe</title>
+
+  <!-- Feuille de style personnalisée -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Feuille de style de vis-timeline -->
+  <link
+    href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css"
+    rel="stylesheet"
+  />
 </head>
 <body>
-  <header>
-    <h1>Histoire de l'Église en Guadeloupe</h1>
-    <nav>
-      <a href="index.html">Accueil</a>
-      <a href="guadeloupe.html" class="active">Guadeloupe</a>
-      <a href="martinique.html">Martinique</a>
-      <a href="guyane.html">Guyane</a>
-    </nav>
-  </header>
+  <div class="container">
+    <h1>Chronologie de l’Église – Guadeloupe</h1>
 
-  <main>
     <div id="timeline"></div>
-<script src="script.js"></script>
 
-    <section id="timeline" data-json="data/guadeloupe.json">
-      <p>..</p>
-    </section>
-    <div id="timeline"></div>
-<script src="script.js"></script>
+    <footer>&copy; 2025 Chronologie LDS DOM-TOM</footer>
+  </div>
 
-  </main>
+  <!-- vis-timeline JS -->
+  <script src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
 
-  <footer>
-    <p>; 
-    </p>
-  </footer>
-
-   <script src="script/script.js"></script>
-  <!-- vis-timeline -->
-<script src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
-<link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet" />
-
+  <!-- Script principal -->
+  <script src="script.js"></script>
 </body>
 </html>
-
