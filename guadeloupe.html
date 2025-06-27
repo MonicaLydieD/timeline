@@ -3,30 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Frise – Guadeloupe</title>
+  <title>Chronologie - Guadeloupe</title>
 
-  <!-- Feuille de style personnalisée -->
-  <link rel="stylesheet" href="styles.css" />
+  <!-- Style général -->
+  <link rel="stylesheet" href="styles/styles.css" />
 
-  <!-- Feuille de style de vis-timeline -->
+  <!-- CSS de vis-timeline -->
   <link
     href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css"
     rel="stylesheet"
   />
 </head>
 <body>
-  <div class="container">
-    <h1>Chronologie de l’Église – Guadeloupe</h1>
+  <header class="container">
+    <h1>Chronologie de l’Église en Guadeloupe</h1>
+  </header>
 
+  <main class="container">
     <div id="timeline"></div>
+  </main>
 
-    <footer>M</footer>
-  </div>
+  <footer class="container">
+    &copy; 2025 - Chronologie interactive | Église en Guadeloupe
+  </footer>
 
-  <!-- vis-timeline JS -->
+  <!-- JS vis-timeline -->
   <script src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
 
-  <!-- Script principal -->
-  <script src="script.js"></script>
+  <!-- Ton script -->
+  <script src="script/script.js"></script>
 </body>
 </html>
