@@ -58,18 +58,17 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  margin-top: 2rem;
+  align-items: stretch;
   width: 100%;
 }
 
+
 /* Frise timeline */
 #timeline {
-  height: 400px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background: #fff;
   width: 100%;
+  min-height: 400px;
 }
+
 
 /* Description */
 .description-panel {
@@ -78,7 +77,7 @@ footer {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   width: 100%;
-  transition: all 0.3s ease;
+  max-width: none;
 }
 
 .description-panel h2 {
@@ -86,6 +85,7 @@ footer {
   color: #333;
   margin-bottom: 0.5rem;
 }
+
 
 .description-panel p {
   color: #555;
