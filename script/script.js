@@ -10,6 +10,18 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then(events => {
       const items = new vis.DataSet();
+      const timeline = new vis.Timeline(container, items, options);
+
+      // Ajouter un écouteur de clic sur les items
+      timeline.on("select", (props) => {
+        const selectedId = props.items[0];
+        if (selectedId != null) {
+          const event = items.get(selectedId);
+          document.getElementById("desc-title").textContent = event.content.replace(/<[^>]*>/g, '');
+          document.getElementById("desc-content").textContent = event.title;
+        }
+      });
+
 
       events.forEach((e, i) => {
         let startDate = parseDate(e.start);
