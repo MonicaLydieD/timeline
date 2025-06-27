@@ -107,3 +107,25 @@ footer {
   line-height: 1.5;
 }
 
+
+.description-panel {
+  background: #fff;
+  padding: 1rem;
+  margin-top: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  max-width: 800px;
+  width: 100%;
+}
+
+.description-panel h2 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.description-panel p {
+  font-size: 1rem;
+  color: #555;
+}
+
