@@ -9,28 +9,31 @@ document.addEventListener("DOMContentLoaded", () => {
       return res.json();
     })
     .then(events => {
-      const items = new vis.DataSet(
-        events.map((e, i) => {
-          const item = {
-            id: i,
-            content: `<strong>${e.title}</strong>`,
-            title: e.description.replace(/"/g, '&quot;'),
-          };
+      const items = new vis.DataSet();
 
-          // Traitement des dates
-          try {
-            item.start = new Date(e.start.includes(" ") ? e.start : "01 " + e.start);
-            if (e.end) {
-              item.end = new Date(e.end.includes(" ") ? e.end : "01 " + e.end);
-              item.type = "range";
-            }
-          } catch (err) {
-            console.warn("Date invalide pour l’événement :", e, err);
-          }
+      events.forEach((e, i) => {
+        let startDate = parseDate(e.start);
+        let endDate = e.end ? parseDate(e.end) : null;
 
-          return item;
-        })
-      );
+        if (!startDate) {
+          console.warn(`Événement ignoré, date invalide :`, e);
+          return;
+        }
+
+        const item = {
+          id: i,
+          content: `<strong>${e.title}</strong>`,
+          start: startDate,
+          title: e.description?.replace(/"/g, '&quot;') || ""
+        };
+
+        if (endDate) {
+          item.end = endDate;
+          item.type = "range";
+        }
+
+        items.add(item);
+      });
 
       const options = {
         orientation: 'top',
@@ -44,6 +47,28 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(err => {
       console.error(err);
-      container.innerHTML = `<p style="color:red;">Erreur : impossible de charger les données.</p>`;
+      container.innerHTML = `<p style="color:red;">Erreur : impossible de charger les données.</p>`;
     });
+
+  function parseDate(str) {
+    if (!str) return null;
+
+    // Cas année uniquement : "2000"
+    if (/^\d{4}$/.test(str)) {
+      return new Date(`${str}-01-01`);
+    }
+
+    // Cas mois année : "Mars 2005"
+    if (/^[A-Za-zéûîôàèùçÉÂÀÔ]+\s+\d{4}$/.test(str)) {
+      try {
+        return new Date(`01 ${str}`);
+      } catch {
+        return null;
+      }
+    }
+
+    // Cas déjà au format valide
+    const date = new Date(str);
+    return isNaN(date.getTime()) ? null : date;
+  }
 });
