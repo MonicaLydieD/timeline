@@ -1,42 +1,48 @@
+// script.js
+
 document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("timeline");
+  const timelineContainer = document.getElementById("timeline");
 
-  // Récupère le nom du fichier JSON à partir de l'attribut data-json sur la div
-  const jsonFile = container.dataset.json;
+  // Récupère le nom de la page sans l'extension
+  const page = window.location.pathname.split("/").pop().replace(".html", "").toLowerCase();
 
-  fetch(jsonFile)
-    .then(response => {
+  // Correspondance du nom de page avec le fichier JSON
+  const dataUrl = `${page}.json`;
+
+  fetch(dataUrl)
+    .then((response) => {
       if (!response.ok) {
-        throw new Error("Fichier JSON introuvable");
+        throw new Error("Erreur de chargement du fichier JSON");
       }
       return response.json();
     })
-    .then(events => {
-      events.forEach(event => {
-        const entry = document.createElement("div");
-        entry.className = "timeline-entry";
+    .then((data) => {
+      data.forEach((event) => {
+        const item = document.createElement("div");
+        item.className = "timeline-item";
 
         const date = document.createElement("div");
         date.className = "timeline-date";
         date.textContent = event.date;
 
-        const title = document.createElement("div");
-        title.className = "timeline-title";
+        const title = document.createElement("h3");
         title.textContent = event.title;
 
-        const description = document.createElement("div");
-        description.className = "timeline-description";
-        description.textContent = event.description;
+        const desc = document.createElement("p");
+        desc.textContent = event.description;
 
-        entry.appendChild(date);
-        entry.appendChild(title);
-        entry.appendChild(description);
+        const content = document.createElement("div");
+        content.className = "timeline-content";
+        content.appendChild(title);
+        if (event.description) content.appendChild(desc);
 
-        container.appendChild(entry);
+        item.appendChild(date);
+        item.appendChild(content);
+        timelineContainer.appendChild(item);
       });
     })
-    .catch(error => {
-      container.innerHTML = `<p class="error">Erreur lors du chargement de la chronologie : ${error.message}</p>`;
+    .catch((error) => {
+      console.error("Erreur :", error);
+      timelineContainer.innerHTML = "<p>Impossible de charger la frise chronologique.</p>";
     });
 });
-
