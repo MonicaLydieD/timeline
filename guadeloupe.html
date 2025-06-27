@@ -1,41 +1,20 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chronologie - Guadeloupe</title>
+#timeline-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}
 
-  <!-- Style général -->
-  <link rel="stylesheet" href="styles/styles.css" />
+#timeline {
+  height: 300px; /* Ajuste selon ton besoin */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
 
-  <!-- CSS de vis-timeline -->
-  <link
-    href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css"
-    rel="stylesheet"
-  />
-</head>
-<body>
-  <header class="container">
-    <h1>Chronologie de l’Église en Guadeloupe</h1>
-  </header>
-
-  <main class="container">
-    <div id="timeline"></div>
-    <!-- Sous la frise timeline -->
-<div id="description-panel" class="description-panel">
-  <h2 id="desc-title"></h2>
-  <p id="desc-content"></p>
-</div>
-  </main>
-
-  <footer class="container">
-    &copy; 2025 -Frise
-  </footer>
-
-  <!-- JS vis-timeline -->
-  <script src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
-
-  <!-- Ton script -->
-  <script src="script/script.js"></script>
-</body>
-</html>
+#description-panel {
+  background-color: #fff;
+  border-left: 4px solid #4a90e2;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
