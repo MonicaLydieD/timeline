@@ -1,1 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chronologie - Église en Martinique</title>
+  <link rel="stylesheet" href="styles/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Chronologie de l'Église en Martinique</h1>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="guadeloupe.html">Guadeloupe</a>
+      <a href="martinique.html" class="active">Martinique</a>
+      <a href="guyane.html">Guyane</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="timeline" data-json="data/martinique_timeline.json">
+      <p>Chargement de la chronologie...</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Chronologie des Saints des Derniers Jours - Martinique</p>
+  </footer>
+
+  <script src="scripts/timeline.js"></script>
+</body>
+</html>
 
