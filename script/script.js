@@ -11,16 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(events => {
       const items = new vis.DataSet();
 
-      const options = {
-        orientation: 'top',
-        showCurrentTime: true,
-        zoomable: true,
-        margin: { item: 20 },
-        tooltip: { followMouse: true, overflowMethod: 'cap' } // ✅ corrigé
-      };
-
-      const timeline = new vis.Timeline(container, items, options);
-
       events.forEach((e, i) => {
         const startDate = parseDate(e.start);
         const endDate = e.end ? parseDate(e.end) : null;
@@ -45,6 +35,33 @@ document.addEventListener("DOMContentLoaded", () => {
         items.add(item);
       });
 
+      const options = {
+        orientation: 'top',
+        tooltip: {
+          followMouse: true,
+          delay: 300
+        },
+        zoomable: true,
+        showCurrentTime: true,
+        margin: { item: 20 },
+        start: new Date('1980-01-01'),
+        end: new Date('2026-12-31'),
+        min: new Date('1970-01-01'),
+        max: new Date('2030-12-31')
+      };
+
+      const timeline = new vis.Timeline(container, items, options);
+
+      // Centrer autour du premier élément
+      if (items.length > 0) {
+        const firstItem = items.get(0);
+        timeline.setWindow(
+          new Date(firstItem.start.getFullYear() - 1, 0, 1),
+          new Date(firstItem.start.getFullYear() + 1, 0, 1)
+        );
+      }
+
+      // Affichage dans le panneau latéral
       timeline.on("select", (props) => {
         const selectedId = props.items[0];
         if (selectedId != null) {
@@ -88,33 +105,3 @@ document.addEventListener("DOMContentLoaded", () => {
     return null;
   }
 });
-if (items.length > 0) {
-  const firstItem = items.get(0);
-  timeline.setWindow(
-    new Date(firstItem.start.getFullYear() - 1, 0, 1), 
-    new Date(firstItem.start.getFullYear() + 1, 0, 1)
-  );
-}
-const options = {
-  orientation: 'top',
-  tooltip: {
-    followMouse: true,
-    delay: 300
-  },
-  zoomable: true,
-  showCurrentTime: true,
-  margin: { item: 20 },
-  start: new Date('1980-01-01'),  // début affiché
-  end: new Date('2026-12-31'),    // fin affichée
-  min: new Date('1970-01-01'),    // plage minimum navigable
-  max: new Date('2030-12-31')     // plage maximum navigable
-};
-
-if (items.length > 0) {
-  const firstItem = items.get(0);
-  timeline.setWindow(
-    new Date(firstItem.start.getFullYear() - 1, 0, 1), 
-    new Date(firstItem.start.getFullYear() + 1, 0, 1)
-  );
-}
-
