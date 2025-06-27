@@ -10,19 +10,19 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then(events => {
       const items = new vis.DataSet();
+
+      // Options de timeline : définies AVANT la création
+      const options = {
+        orientation: 'top',
+        tooltip: false, // Désactivé, car on utilise un panneau latéral
+        zoomable: true,
+        showCurrentTime: true,
+        margin: { item: 20 }
+      };
+
       const timeline = new vis.Timeline(container, items, options);
 
-      // Ajouter un écouteur de clic sur les items
-      timeline.on("select", (props) => {
-        const selectedId = props.items[0];
-        if (selectedId != null) {
-          const event = items.get(selectedId);
-          document.getElementById("desc-title").textContent = event.content.replace(/<[^>]*>/g, '');
-          document.getElementById("desc-content").textContent = event.title;
-        }
-      });
-
-
+      // Ajouter les événements
       events.forEach((e, i) => {
         let startDate = parseDate(e.start);
         let endDate = e.end ? parseDate(e.end) : null;
@@ -47,21 +47,22 @@ document.addEventListener("DOMContentLoaded", () => {
         items.add(item);
       });
 
-      const options = {
-        orientation: 'top',
-        tooltip: { followMouse: true },
-        zoomable: true,
-        showCurrentTime: true,
-        margin: { item: 20 },
-      };
-
-      new vis.Timeline(container, items, options);
+      // Lorsqu'on sélectionne un élément de la frise
+      timeline.on("select", (props) => {
+        const selectedId = props.items[0];
+        if (selectedId != null) {
+          const event = items.get(selectedId);
+          document.getElementById("desc-title").textContent = event.content.replace(/<[^>]*>/g, '');
+          document.getElementById("desc-content").textContent = event.title;
+        }
+      });
     })
     .catch(err => {
       console.error(err);
       container.innerHTML = `<p style="color:red;">Erreur : impossible de charger les données.</p>`;
     });
 
+  // Fonction de conversion de date souple
   function parseDate(str) {
     if (!str) return null;
 
@@ -79,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // Cas déjà au format valide
+    // Cas complet standard
     const date = new Date(str);
     return isNaN(date.getTime()) ? null : date;
   }
