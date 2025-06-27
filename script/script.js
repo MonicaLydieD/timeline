@@ -10,16 +10,28 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then(events => {
       const items = new vis.DataSet(
-        events.map((e,i) => {
-          const iso = e.date.match(/\d{4}/) ? e.date : ("01 " + e.date);
-          return {
+        events.map((e, i) => {
+          const item = {
             id: i,
             content: `<strong>${e.title}</strong>`,
-            start: new Date(iso),
-            title: e.description.replace(/"/g, '&quot;')
+            title: e.description.replace(/"/g, '&quot;'),
           };
+
+          // Traitement des dates
+          try {
+            item.start = new Date(e.start.includes(" ") ? e.start : "01 " + e.start);
+            if (e.end) {
+              item.end = new Date(e.end.includes(" ") ? e.end : "01 " + e.end);
+              item.type = "range";
+            }
+          } catch (err) {
+            console.warn("Date invalide pour l’événement :", e, err);
+          }
+
+          return item;
         })
       );
+
       const options = {
         orientation: 'top',
         tooltip: { followMouse: true },
@@ -27,6 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
         showCurrentTime: true,
         margin: { item: 20 },
       };
+
       new vis.Timeline(container, items, options);
     })
     .catch(err => {
